@@ -21,14 +21,19 @@ export default function AuthControl() {
 
   async function handleLogoutButtonClick() {
     if(await askForConfirmation('Deseja realmente sair?')) {
-      // Apaga o token do localStorage
-      window.localStorage.removeItem(import.meta.env.VITE_AUTH_TOKEN_NAME)
+      await myfetch.post('/users/logout')
 
-      // Remove as informações do usuário autenticado
-      setAuthUser(null)
 
-      // Redireciona para a página de login
-      navigate('/login')
+     // Apaga o token armazenado no localStorage
+     // window.localStorage.removeItem(import.meta.env.VITE_AUTH_TOKEN_NAME)
+
+
+     // Remove as informações do usuário autenticado
+     setAuthUser(null)
+
+
+     // Redireciona para a página de login
+     navigate('/login')
     }
   }
 

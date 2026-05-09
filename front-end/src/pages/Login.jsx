@@ -26,13 +26,13 @@ export default function Login() {
     showPassword
   } = state
 
-  const { 
-    setAuthUser, 
-    redirectLocation, 
-    setRedirectLocation 
+  const {
+    setAuthUser,
+    redirectLocation,
+    setRedirectLocation
   } = React.useContext(AuthUserContext)
 
-  const { notify, Notification} = useNotification()
+  const { notify, Notification } = useNotification()
   const { showWaiting, Waiting } = useWaiting()
 
   const navigate = useNavigate()
@@ -55,7 +55,7 @@ export default function Login() {
 
       const loginData = { password }
 
-      if(email.includes('@')) loginData.email = email
+      if (email.includes('@')) loginData.email = email
       // Se o valor da variável email não contiver @, será tratado
       // como um username
       else loginData.username = email
@@ -66,10 +66,10 @@ export default function Login() {
       const response = await myfetch.post('/users/login', loginData)
 
       // Armazena o token retornado no localStorage (INSEGURO!)
-      window.localStorage.setItem(
-          import.meta.env.VITE_AUTH_TOKEN_NAME,
-          response.token
-      )
+      // window.localStorage.setItem(
+      //   import.meta.env.VITE_AUTH_TOKEN_NAME,
+      //   result.token
+      // )
 
       // Armazena as informações do usuário autenticado
       setAuthUser(response.user)
@@ -77,7 +77,7 @@ export default function Login() {
       // Mostra a notificação de sucesso e depois vai para a página inicial
       notify('Autenticação realizada com sucesso', 'success', 1500, () => {
         // Verifica se existe algum destino para redirecionamento
-        if(redirectLocation) {
+        if (redirectLocation) {
           const dest = redirectLocation
           setRedirectLocation(null)   // Reseta o destino de redirecionamento
           navigate(dest, { replace: true })
@@ -85,7 +85,7 @@ export default function Login() {
         else navigate('/', { replace: true })
       })
     }
-    catch(error) {
+    catch (error) {
       console.error(error)
       notify(error.message, 'error')
     }
@@ -94,7 +94,7 @@ export default function Login() {
     }
   }
 
-  return(
+  return (
     <>
       <Notification />
       <Waiting />
@@ -128,7 +128,7 @@ export default function Login() {
             value={password}
             label="Senha"
             variant="filled"
-            type={ showPassword ? 'text': 'password' }
+            type={showPassword ? 'text' : 'password'}
             fullWidth
             onChange={handleChange}
             sx={{ mb: '24px' /* mb = marginBottom */ }}
@@ -140,7 +140,7 @@ export default function Login() {
                     onClick={handleClick}
                     edge="end"
                   >
-                    { showPassword ? <VisibilityOffIcon /> : <VisibilityIcon /> }
+                    {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                   </IconButton>
                 </InputAdornment>
             }}
